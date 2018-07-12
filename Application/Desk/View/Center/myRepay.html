@@ -21,7 +21,7 @@
 <foreach name="result" item="vo">
     <div class="je jk" id="wall">
         <div>
-            <p class="loan_id" id="{$vo.loan_id}">还款金额：￥{$vo.repay}</p>
+            <p class="loan_id" id="{$vo.loan_id}">还款金额：￥{$vo.mon_repay}</p>
             <p>还款时间：{$vo.dead_time}</p>
         </div>
         <button><a href="/desk/wallet/voucherDetails/{$vo.loan_id}">查看</a></button>

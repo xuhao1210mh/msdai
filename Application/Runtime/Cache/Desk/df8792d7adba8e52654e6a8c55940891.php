@@ -20,8 +20,8 @@
 </div>
 <?php if(is_array($result)): foreach($result as $key=>$vo): ?><div class="je jk" id="wall">
         <div>
-            <p class="loan_id" id="<?php echo ($vo["loan_id"]); ?>"><?php echo ($vo["repay"]); ?></p>
-            <p><?php echo ($vo["dead_time"]); ?></p>
+            <p class="loan_id" id="<?php echo ($vo["loan_id"]); ?>">还款金额：￥<?php echo ($vo["mon_repay"]); ?></p>
+            <p>还款时间：<?php echo ($vo["dead_time"]); ?></p>
         </div>
         <button><a href="/desk/wallet/voucherDetails/<?php echo ($vo["loan_id"]); ?>">查看</a></button>
     </div><?php endforeach; endif; ?>

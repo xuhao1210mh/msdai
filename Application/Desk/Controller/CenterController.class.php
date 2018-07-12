@@ -79,7 +79,8 @@ class CenterController extends BaseController{
     public function myRepay(){
         $uid = $_SESSION['uid'];
         $loan = M('loan');
-        $result = $loan->where("uid='$uid' and status=5")->order('dead_time desc')->select();
+        //$result = $loan->where("uid='$uid' and status=5")->order('dead_time desc')->select();
+        $result = $loan->query("select loan.loan_id,loan.dead_time,loan_info.mon_repay from loan,loan_info where loan.uid='$uid' and loan.status=5 and loan.loan_id=loan_info.loan_id order by loan.dead_time desc");
         $this->assign('result', $result);
 
         $this->display();
