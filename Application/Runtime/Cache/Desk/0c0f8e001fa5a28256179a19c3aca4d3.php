@@ -1,0 +1,112 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=750, user-scalable=no" target-densitydpi="device-dpi">
+    <title>修改密码</title>
+    <link rel="stylesheet" href="/Public/assets/css/index.css">
+    <link rel="stylesheet" href="/Public/assets/css/dialog.css">
+    <script src="/Public/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/Public/assets/js/dialog.min.js"></script>
+</head>
+<body>
+<nav>
+    <div class="back" id="back">
+        <img src="/Public/assets/images/back.png" alt="">
+    </div>
+    <span>修改密码</span>
+</nav>
+<form class="Modify-content">
+    <!--请输入密码-->
+    <div class="psw">
+        <div><img src="/Public/assets/images/psw.png" alt=""></div>
+        <div><input type="password" placeholder="请输入旧密码" name="Old_password" id="old_password"></div>
+    </div>
+    <div class="psw">
+        <div><img src="/Public/assets/images/psw.png" alt=""></div>
+        <div><input type="password" placeholder="请输入6-16位数字或字母新密码" name="New_password" id="password"></div>
+    </div>
+    <div class="psw">
+        <div><img src="/Public/assets/images/psw.png" alt=""></div>
+        <div><input type="password" placeholder="请确认密码" name="Confirm_password" id="repassword"></div>
+    </div>
+    <button type="button" class="submit" id="zc"><a>确认</a></button>
+</form>
+
+<!--  -->
+<script>
+$('#zc').on('click', function(){
+    var old_password = $('#old_password').val();
+    var password = $('#password').val();
+    var length = password.length;
+    var repassword = $('#repassword').val();
+    if(old_password == ''){
+        $(document).dialog({
+            titleShow: false,
+            content: '请输入旧密码'
+        });
+        return false;
+    }
+    if(password == ''){
+        $(document).dialog({
+            titleShow: false,
+            content: '请输入新密码'
+        });
+        return false;
+    }
+    if(length > 16 || length < 6){
+        $(document).dialog({
+            titleShow: false,
+            content: '请输入6-16位数字或字母新密码'
+        });
+        return false;
+    }
+    if(repassword == ''){
+        $(document).dialog({
+            titleShow: false,
+            content: '请输入确认密码'
+        });
+        return false;
+    }
+    if(repassword != password){
+        $(document).dialog({
+            titleShow: false,
+            content: '两次密码输入不一致'
+        });
+        return false;
+    }
+
+    $.ajax({
+        url: "<?php echo U('/desk/center/changePassword');?>",
+        type: "post",
+        dataType: "json",
+        data: {
+            old_password: old_password,
+            password: password,
+            repassword: repassword
+        },
+        success: function(data){
+            if(data.status == 1){
+                $(document).dialog({
+                    titleShow: false,
+                    content: data.info,
+                    onClickConfirmBtn: function(){
+                        location.href = data.url;
+                    }
+                });
+            }else{
+                $(document).dialog({
+                    titleShow: false,
+                    content: data.info
+                });
+            }
+        }  
+    });
+})
+
+$('#back').on('click', function(){
+    location.href = '/desk/center/personalCenter';
+})
+</script>
+</body>
+</html>

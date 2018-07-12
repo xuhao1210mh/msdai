@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <layout name="Layout/index" />
+    <div class="container">
+        <div class="header">
+            <h2></h2>
+        </div>
+        <div class="body">
+            <div>
+                <div class="panel panel-default">
+                    <div class="panel-body" style="text-align: center;">
+                        借款人申请表
+                    </div>
+                </div>
+
+                <table class="table table-secondary table-hover text-center col-md-2">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th style="display: none">编号</th>
+                            <th style="display: none">用户id</th>
+                            <th>申请时间</th>
+                            <th>金额</th>
+                            <th>借款人姓名</th>
+                            <th>借款人电话</th>
+                            <th>到期时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <volist name="result" id="val">
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td style="display: none;">{$val.loan_id}</td>
+                                <td style="display: none;">{$val.uid}</td>
+                                <td>{$val.apply_time}</td>
+                                <td>{$val.sum}</td>
+                                <td>{$val.name}</td>
+                                <td>{$val.number}</td>
+                                <td>{$val.dead_time}</td>
+                                <!-- <td>
+                                    <switch name="val['status']">
+                                        <case value="1">待审核</case>
+                                        <case value="2">审核通过</case>
+                                        <case value="3">审核失败</case>
+                                    </switch>
+                                </td> -->
+                                <td><button class="btn btn-primary btn-sm btn-block check_loan_info">查看</button></td>
+                            </tr>
+                        </volist>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="footer">
+
+        </div>
+    </div>
+<!--  -->
+<script>
+$('.check_loan_info').on('click', function(){
+    var loan_id = $(this).parent().parent().children().eq(1).text();
+    var uid = $(this).parent().parent().children().eq(2).text();
+    location.href = '/admin/main/check?loan_id=' + loan_id + '&uid=' + uid;
+})
+</script>
+</body>
+</html>

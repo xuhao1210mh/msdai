@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=750, user-scalable=no" target-densitydpi="device-dpi">
+    <title>忘记密码</title>
+    <link rel="stylesheet" href="/Public/assets/css/index.css">
+    <link rel="stylesheet" href="/Public/assets/css/dialog.css">
+    <script src="/Public/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/Public/assets/js/dialog.min.js"></script>
+</head>
+<body>
+<nav>
+    <div class="back">
+        <img src="/Public/assets/images/back.png" alt="">    </div>
+    <span>忘记密码</span>
+</nav>
+<form class="index-content">
+    <!--输入手机号-->
+    <div class="tele">
+        <div><img src="/Public/assets/images/tell.png" alt=""></div>
+        <div><input type="number" placeholder="请输入手机号" name="tele" id="username"></div>
+    </div>
+    <!--请输入密码-->
+    <div class="psw">
+        <div><img src="/Public/assets/images/psw.png" alt=""></div>
+        <div><input type="text" placeholder="请输入验证码" name="password" id="captcha"><span class="yzm" id="get_captcha">获取验证码</span></div>
+    </div>
+    <div class="psw">
+        <div><img src="/Public/assets/images/psw.png" alt=""></div>
+        <div><input type="password" placeholder="请输入密码" name="password" id="password"></div>
+    </div>
+    <button type="button" class="submit" id="zc"><a>确认</a></button>
+</form>
+<!--  -->
+<script>
+$('#get_captcha').on('click', function(){
+    if($('#username').val() == ''){
+        $(document).dialog({
+            titleShow: false,
+            content: '请输入手机号',
+        });
+        return false;
+    }
+    $.ajax({
+        url: "{:U('/desk/entry/getCaptcha')}",
+        type: "post",
+        dataType: "json",
+        data: {
+            username: $('#username').val()
+        },
+        success: function(data){
+            if(data.status == 1){
+                $(document).dialog({
+                    titleShow: false,
+                    content: data.info
+                });
+            }else{
+                $(document).dialog({
+                    titleShow: false,
+                    content: data.info
+                });
+            }
+        }  
+    });
+})
+
+$('#zc').on('click', function(){
+    if($('#username').val() == ''){
+        $(document).dialog({
+            titleShow: false,
+            content: '请输入手机号',
+        });
+        return false;
+    }
+    if($('#captcha').val() == ''){
+        $(document).dialog({
+            titleShow: false,
+            content: '请输入验证码',
+        });
+        return false;
+    }
+    if($('#password').val() == ''){
+        $(document).dialog({
+            titleShow: false,
+            content: '请输入密码',
+        });
+        return false;
+    }
+
+    $.ajax({
+        url: "{:U('/desk/entry/forget')}",
+        type: "post",
+        dataType: "json",
+        data: {
+            username: $('#username').val(),
+            captcha: $('#captcha').val(),
+            password: $('#password').val()
+        },
+        success: function(data){
+            if(data.status == 1){
+                $(document).dialog({
+                    titleShow: false,
+                    content: data.info,
+                    onClickConfirmBtn: function(){
+                        location.href = data.url;
+                    }
+                });
+            }else{
+                $(document).dialog({
+                    titleShow: false,
+                    content: data.info
+                });
+            }
+        }  
+    });
+})
+
+$('.back').on('click', function(){
+    window.history.back();
+})
+</script>
+</body>
+</html>

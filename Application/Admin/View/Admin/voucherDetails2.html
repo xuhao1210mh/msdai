@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=600, minimum-scale=0.5, maximum-scale=1.0, user-scalable=no" target-densitydpi="device-dpi"> -->
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8, target-densitydpi=low-dpi"/>
+    <title>凭证详情</title>
+    <link rel="stylesheet" href="/Public/assets/css/index.css">
+    <link rel="stylesheet" href="/Public/assets/admin/css/xadmin.css">
+    <script src="/Public/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/Public/assets/admin/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="/Public/assets/admin/js/xadmin.js"></script>
+
+</head>
+<body>
+<!--导航-->
+<nav>
+    <!-- <div class="back">
+        <img src="/Public/assets/images/back.png" alt="">
+    </div> -->
+    <span>凭证详情</span>
+</nav>
+<p id="loan_id">{$loan_id}</p>
+<div class="hp_cont">
+    <div class="hp">
+        <img src="/Public/assets/images/touxiang.png" alt="">
+        <span>{$result.name}</span>
+        <div class="qz">
+            <img src="/files/setting/{$result.pic}" alt="">
+            <span>签字区域</span>
+        </div>
+    </div>
+    <div class="jkg">
+        <span>》 借款给  》</span>
+    </div>
+    <div class="hp hp_two">
+        <img src="/Public/assets/images/touxiang.png" alt="">
+        <span>{$result.nickname}</span>
+        <div class="qz">
+            <img src="{$result.sign}" alt="">
+            <span>签字区域</span>
+        </div>
+    </div>
+</div>
+<div style="width: 100%;height: 20px;background: #ededed"></div>
+<div>
+    <ul class="rq">
+        <li><span>借款日期</span><span>{$result.apply_time}</span></li>
+        <li><span>还款日期</span><span>{$result.dead_time}</span>
+            <del id="{$isFlag}" class="old_time" style="display: none">原：{$result.again_time}(已展期)</del>
+            <!-- <p id="isFlag">{$result.ifFlag}</p> -->
+        </li>
+        <li><span>借款金额</span><span class="qian">{$result.sum}元</span></li>
+        <li><span>年化利率</span><span>{$result.rate}%</span></li>
+        <li><span>本息共计</span><span class="qian">{$result.repay}元</span></li>
+        <li><span>借款用途</span><span>{$result.use}</span></li>
+    </ul>
+    <div style="clear: both"></div>
+</div>
+<div style="width: 100%;height: 20px;background: #ededed;margin-top:20px"></div>
+<div class="xybh" id="flag1" style="display: none;">
+    <div class="ysx">
+        <img src="/Public/assets/images/zhang.png" alt="">
+    </div>
+    <ul class="rq">
+        <li><span>协议编号</span><span id="receipt_id">{$result.receipt_id}</span>
+            <!-- <a href="http://ypz.youmaijinkong.com/m/agreement/iou/2/!Zqv8rN!2rNv8vT86">电子协议(点击查看详情)</a> -->
+        </li>
+    </ul>
+</div>
+<div class="shpz" id="flag2" style="display: none;">
+    <div class="ysx sh">
+        <img src="/Public/assets/images/zhangyi.png" alt="">
+    </div>
+    <ul class="rq">
+        <li><span>实际还款日期</span><span>{$result.fact_time}</span></li>
+        <!-- <li><span>是否逾期</span><span>否</span></li> -->
+        <li><span>协议编号</span><span>{$result.receipt_id}</span>
+            <!-- <a href="http://ypz.youmaijinkong.com/m/agreement/iou/2/!Zqv8rN!2rNv8vT86">电子协议(点击查看详情)</a> -->
+        </li>
+    </ul>
+</div>
+<p style="display: none" id="status">{$result.status}</p>
+<div class="zq" id="operate">
+    <div>
+        <button class="zq_btn">
+            <!-- <a id="again">展期</a> -->
+            <a title="展期" id="zq_btn" onclick="x_admin_show('展期','/admin/admin/again/?receipt_id={$result.receipt_id}',500,400)">展期</a>
+        </button>
+        <button class="hk" id="clear">对方已还款，撕毁凭证</button>
+    </div>
+</div>
+<!-- <div style="width:500px; height:500px; position:absolute;left:85px; top:200px; border:2px solid red; ">
+    <input type="text" style="position: absolute;"><br><br><br>
+    <button style="height: 20px; width: 300px; position: absolute;">确认</button>
+</div> -->
+<script>
+
+$('#again').on('click', function(){
+    $('#fill_time').show();
+})
+
+$(function(){
+    // $.ajax({
+    //     url: "{:U('/admin/admin/voucherDetails2')}",
+    //     type: "post",
+    //     dataType: "json",
+    //     // data: {
+    //     //     receipt_id: $('#receipt_id').text()
+    //     // },
+    //     success: function(data){
+    //         if(data.info == 'show'){
+    //             $('#old_time').show();
+    //         }
+    //     }  
+    // });  
+})
+
+</script>
+<script>
+$(function(){
+    var isFlag = $('.old_time').attr('id');
+    if(isFlag == '1'){
+        $('.old_time').show();
+    }
+    var status = $('#status').text();
+    if(status == 1){
+        $('#flag1').show();
+        return false;
+    }
+    if(status ==3){
+        $('#operate').hide();
+        $('#flag1').hide();
+        $('#flag2').show();
+        return false;
+    }
+})
+$('#clear').on('click', function(){
+    $.ajax({
+        url: "{:U('/admin/admin/clear')}",
+        type: "post",
+        dataType: "json",
+        data: {
+            receipt_id: $('#receipt_id').text()
+        },
+        success: function(data){
+            if(data.status == 1){
+                layer.msg(data.info, {icon: 1});
+                location.reload();
+                parent.location.reload();
+                //self.opener.location.reload();
+            }else{
+                layer.msg(data.info, {icon: 2});
+            }
+        }  
+    });
+})
+</script>
+</body>
+<script src="/Public/assets/js/index.js"></script>
+</html>

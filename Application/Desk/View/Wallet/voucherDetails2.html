@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=750, user-scalable=no" target-densitydpi="device-dpi">
+    <title>凭证详情</title>
+    <link rel="stylesheet" href="/Public/assets/css/index.css">
+    <link rel="stylesheet" href="/Public/assets/css/dialog.css">
+    <script src="/Public/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/Public/assets/js/dialog.min.js"></script>
+    <script src="/Public/assets/js/html2canvas.min.js"></script>
+    <script src="/Public/assets/js/canvas2image.js"></script>
+
+</head>
+<body>
+<!--导航-->
+<nav>
+    <div class="back">
+        <img src="/Public/assets/images/back.png" alt="">
+    </div>
+    <span>凭证详情</span>
+</nav>
+<p id="loan_id" style="display: none">{$loan_id}</p>
+<div class="hp_cont">
+    <div class="hp">
+        <img src="/Public/assets/images/touxiang.png" alt="">
+        <span>{$name}</span>
+        <div class="qz">
+            <img src="/Public/setting/{$pic}" alt="">
+            <span>签字区域</span>
+        </div>
+    </div>
+    <div class="jkg">
+        <span>》 借款给  》</span>
+    </div>
+    <div class="hp hp_two">
+        <img src="/Public/assets/images/touxiang.png" alt="">
+        <span>{$nickname}</span>
+        <div class="qz">
+            <img src="{$sign}" alt="">
+            <span>签字区域</span>
+        </div>
+    </div>
+</div>
+<div style="width: 100%;height: 20px;background: #ededed"></div>
+<div>
+    <ul class="rq">
+        <li><span>借款日期</span><span>{$apply_time}</span></li>
+        <li><span>还款日期</span><span>{$dead_time}</span>
+            <!-- <del>原：2018-06-10(已展期)</del> -->
+        </li>
+        <li><span>借款金额</span><span class="qian">{$sum}元</span></li>
+        <li><span>年化利率</span><span>{$rate}%</span></li>
+        <li><span>本息共计</span><span class="qian">{$repay}元</span></li>
+        <li><span>借款用途</span><span>{$use}</span></li>
+    </ul>
+    <div style="clear: both"></div>
+</div>
+<div style="width: 100%;height: 20px;background: #ededed;margin-top:20px"></div>
+<div class="xybh">
+    <div class="ysx">
+        <img src="/Public/assets/images/zhang.png" alt="">
+    </div>
+    <ul class="rq">
+        <li><span>协议编号</span><span>{$time}</span>
+            <!-- <a href="http://ypz.youmaijinkong.com/m/agreement/iou/2/!Zqv8rN!2rNv8vT86">电子协议(点击查看详情)</a> -->
+        </li>
+    </ul>
+</div>
+<div class="shpz">
+    <div class="ysx sh">
+        <img src="/Public/assets/images/zhangyi.png" alt="">
+    </div>
+    <ul class="rq">
+        <li><span>实际还款日期</span><span>2018-06-02</span></li>
+        <li><span>是否逾期</span><span>否</span></li>
+        <li><span>协议编号</span><span>123165465123132346</span>
+            <!-- <a href="http://ypz.youmaijinkong.com/m/agreement/iou/2/!Zqv8rN!2rNv8vT86">电子协议(点击查看详情)</a> -->
+        </li>
+    </ul>
+</div>
+<div class="zq">
+    <!-- <div>
+        <button class="zq_btn">
+            <a href="#">展期</a>
+        </button>
+        <button class="hk">对方以还款，撕毁凭证</button>
+    </div> -->
+
+</div>
+<script>
+$('.back').on('click', function(){
+    location.href = '/desk/wallet/myWallet';
+})
+</script>
+</body>
+<script src="/Public/assets/js/index.js"></script>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <layout name="Layout/index" />
+    <div class="container">
+        <div class="header">
+            <h2></h2>
+        </div>
+        <div class="body">
+            <div>
+                <div class="panel panel-default">
+                    <div class="panel-body" style="text-align: center;">
+                        查看信息
+                    </div>
+                </div>
+
+                <table class="table table-secondary table-hover text-center col-md-2">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>借款期限(月)</td>
+                            <td>{$result1.deadline}</td>
+                        </tr>
+                        <tr>
+                            <td>月还款</td>
+                            <td>{$result1.mon_repay}</td>
+                        </tr>
+                        <tr>
+                            <td>用途</td>
+                            <td>{$result1.use}</td>
+                        </tr>
+                        <tr>
+                            <td>亲属({$result2.relation1})姓名</td>
+                            <td>{$result2.name1}</td>
+                        </tr>
+                        <tr>
+                            <td>亲属({$result2.relation1})电话</td>
+                            <td>{$result2.number1}</td>
+                        </tr>
+                        <tr>
+                            <td>朋友({$result2.relation2})姓名</td>
+                            <td>{$result2.name2}</td>
+                        </tr>
+                        <tr>
+                            <td>朋友({$result2.relation2})电话</td>
+                            <td>{$result2.number2}</td>
+                        </tr>
+                        <tr>
+                            <td>朋友({$result2.relation3})姓名</td>
+                            <td>{$result2.name3}</td>
+                        </tr>
+                        <tr>
+                            <td>朋友({$result2.relation3})电话</td>
+                            <td>{$result2.number3}</td>
+                        </tr>
+                        <tr>
+                            <td>身份证正面</td>
+                            <td><img class="rounded col-3" src="/files/{$username}/pics/{$result3.pic1}" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td>身份证反面</td>
+                            <td><img class="rounded col-3" src="/files/{$username}/pics/{$result3.pic2}" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td>手持身份证照片</td>
+                            <td><img class="rounded col-3" src="/files/{$username}/pics/{$result3.pic3}" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td>银行卡照片</td>
+                            <td><img class="rounded col-3" src="/files/{$username}/pics/{$result3.pic4}" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td>银行卡号</td>
+                            <td>{$result3.card_number}</td>
+                        </tr>
+                        <tr>
+                            <td>开户名</td>
+                            <td>{$result3.card_name}</td>
+                        </tr>
+                        <tr>
+                            <td>工作单位名称</td>
+                            <td>{$result4.company}</td>
+                        </tr>
+                        <tr>
+                            <td>工作单位地址</td>
+                            <td>{$result4.province}-{$result4.city}-{$result4.area}</td>
+                        </tr>
+                        <tr>
+                            <td>详细地址</td>
+                            <td>{$result4.address}</td>
+                        </tr>
+                        <tr>
+                            <td>职位</td>
+                            <td>{$result4.position}</td>
+                        </tr>
+                        <tr>
+                            <td>职位</td>
+                            <td>{$result4.position}</td>
+                        </tr>
+                        <tr>
+                            <td>收入</td>
+                            <td>{$result4.income}</td>
+                        </tr>
+                        <tr>
+                            <td>单位电话</td>
+                            <td>{$result4.number}</td>
+                        </tr>
+                        <tr>
+                            <td>芝麻信用</td>
+                            <td><img class="rounded col-3" src="/files/{$username}/pics/{$result5.pic1}" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td>运营商认证</td>
+                            <td>运营商：{$result5.operator}<br>手机号：{$result5.number}<br>登陆密码：{$result5.password}</td>
+                        </tr>
+                        <!-- <tr>
+                            <td>负面记录</td>
+                            <td><img class="rounded col-3" src="/files/{$username}/pics/{$result5.pic1}" alt=""></td>
+                        </tr> -->
+                    </tbody>
+                </table>
+                <div class="col-md-6 offset-3">
+                    <!-- <input type="text" id="sum" placeholder="请输入贷款额度"> -->
+                    <button class="btn btn-primary btn-lg btn-block" id="back">返回</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+
+        </div>
+    </div>
+<!--  -->
+<script>
+$('#back').on('click', function(){
+    window.history.back();
+})
+</script>
+</body>
+</html>
