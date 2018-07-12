@@ -23,7 +23,7 @@
         <li>
             <a id="wallet">
                 <div><img src="/Public/assets/images/wallet.png" alt=""></div>
-                <span>我的钱包</span>
+                <span>我的申请</span>
                 <div><img src="/Public/assets/images/right.png" alt=""></div>
             </a>
         </li>

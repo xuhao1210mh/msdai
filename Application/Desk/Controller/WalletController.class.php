@@ -9,7 +9,7 @@ class WalletController extends BaseController{
     public function myWallet(){
         $uid = $_SESSION['uid'];
         $loan = M('loan');
-        $result = $loan->where("uid='$uid' and (status='1' or status='2')")->order('put_time desc')->select();
+        $result = $loan->where("uid='$uid' and (status='1' or status='2' or status='4')")->order('put_time desc')->select();
         $this->assign('result', $result);
         // $uid = $_SESSION['uid'];
         // $loan = M('loan');
@@ -146,12 +146,16 @@ class WalletController extends BaseController{
             $loan_id = $_POST['loan_id'];
             $status = M('loan')->where("loan_id='$loan_id'")->getField('status');
             //审核通过
-            if($status == 2){
+            if($status == 2 || $status == 4){
                 $this->success('success', "/desk/wallet/findingsOfAudit?loan_id=$loan_id");
             }
             //待审核
             if($status == 1){
                 $this->success('success', "/desk/wallet/waitResult?loan_id=$loan_id");
+            }
+            //审核不通过
+            if($status == 3){
+                $this->success('success', "/desk/wallet/noResult?loan_id=$loan_id");
             }
         }
     }
@@ -177,6 +181,14 @@ class WalletController extends BaseController{
         $code = M('two_code');
         $pic = $code->where("id=1")->getField('pic');
 
+        $receipt = M('receipt');
+        $result = $receipt->where("loan_id='$loan_id'")->find();
+        if($result){
+            $this->assign('flag', 'show');
+        }else{
+            $this->assign('flag', 'hide');
+        }
+
         $this->assign('pic', $pic);
         $this->assign('loan_id', $loan_id);
         $this->display();
@@ -191,7 +203,23 @@ class WalletController extends BaseController{
 
     //审核不通过状态
     public function noResult(){
+        $loan_id = $_GET['loan_id'];
+        $this->assign('loan_id', $loan_id);
         $this->display();
+    }
+
+    //删除订单
+    public function delAll(){
+        $loan_id = $_POST['loan_id'];
+        $data['status'] = 0;
+        $loan = M('loan');
+        $result = $loan->where("loan_id='$loan_id'")->delete();
+
+        if($result){
+            $this->success('success', '/desk/wallet/myWallet');
+        }else{
+            $this->error('error');
+        }
     }
 
 }

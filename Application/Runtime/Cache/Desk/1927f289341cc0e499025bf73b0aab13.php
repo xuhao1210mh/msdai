@@ -20,7 +20,7 @@
 </div>
 <?php if(is_array($result)): foreach($result as $key=>$vo): ?><div class="je jk" id="wall">
         <div>
-            <p class="loan_id" id="<?php echo ($vo["loan_id"]); ?>"><?php echo ($vo["sum"]); ?></p>
+            <p class="loan_id" id="<?php echo ($vo["loan_id"]); ?>">借款金额：￥<?php echo ($vo["sum"]); ?></p>
             <p><?php echo ($vo["apply_time"]); ?></p>
         </div>
         <button><a href="/desk/wallet/voucherDetails/<?php echo ($vo["loan_id"]); ?>">查看</a></button>

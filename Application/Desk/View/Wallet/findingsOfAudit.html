@@ -14,22 +14,31 @@
     <div class="back">
         <img src="/Public/assets/images/back.png" alt="">
     </div>
-    <span>审核成功</span>
+    <span>审核通过</span>
 </nav>
 <div class="banner">
     <img src="/Public/assets/images/banner2.png" alt="">
 </div>
 <div class="foa">
-    <img src="/Public/assets/images/foa.png" alt="">
+    <img src="/Public/assets/images/noresult.jpg" alt="">
 </div>
 <!-- <div class="kded">
     <span>{$sum}元</span>
 </div> -->
 <p id="loan_id" style="display: none">{$loan_id}</p>
+<p id="flag" style="display: none">{$flag}</p>
 <div style="width: 400px;margin: 0 auto;margin-top: 100px;display: none;" id="code"><img src="/Public/setting/{$pic}" alt="" style="width: 400px;display: block"></div>
-<span style="text-align: center;display: block;font-size: 30px;margin-top: 20px;display: none;" id="tip">扫描客服专属二维码</span>
+<div style="text-align: center;font-size: 30px;margin-top: 20px;display: none;" id="tip">扫描客服专属二维码</div>
 <a class="ljtx">生成凭证</a>
 <script>
+$(function(){
+    var flag = $('#flag').text();
+    if(flag == 'show'){
+        $('.ljtx').hide();
+        $('#code').show();
+        $('#tip').show();
+    }
+})
 $('.ljtx').on('click', function(){
     $.ajax({
         url: "{:U('/desk/wallet/withdraw')}",
@@ -46,7 +55,7 @@ $('.ljtx').on('click', function(){
                     onClickConfirmBtn: function(){
                         $('.ljtx').hide();
                         $('#code').show();
-                        $('tip').show();
+                        $('#tip').show();
                     }
                 });
             }else{

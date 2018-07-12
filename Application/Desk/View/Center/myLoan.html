@@ -21,7 +21,7 @@
 <foreach name="result" item="vo">
     <div class="je jk" id="wall">
         <div>
-            <p class="loan_id" id="{$vo.loan_id}">{$vo.sum}</p>
+            <p class="loan_id" id="{$vo.loan_id}">借款金额：￥{$vo.sum}</p>
             <p>{$vo.apply_time}</p>
         </div>
         <button><a href="/desk/wallet/voucherDetails/{$vo.loan_id}">查看</a></button>
