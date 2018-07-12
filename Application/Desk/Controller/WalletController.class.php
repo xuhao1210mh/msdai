@@ -19,7 +19,7 @@ class WalletController extends BaseController{
     }
 
     public function withdraw(){
-        $loan_id = '';
+        $loan_id = $_POST['loan_id'];
         $loan_info = M('loan_info');
         $deadline = $loan_info->where("loan_id='$loan_id'")->getField('deadline');
         $date = date("Y-m-d H:i:s");
@@ -27,7 +27,6 @@ class WalletController extends BaseController{
         $loan = M('loan');
         $data['status'] = 4;
         $data['apply_time'] = $date;
-
         $dead_time = date('Y-m-d H:i:s', strtotime("$date + $deadline day"));
 
         $data['dead_time'] = $dead_time;
@@ -36,7 +35,7 @@ class WalletController extends BaseController{
         if($result){
             //$this->success('申请成功，请等待工作人员处理', '/desk/wallet/myWallet');
             self::voucherDetails2($loan_id);
-            $this->success('', "/desk/wallet/voucherDetails2/$loan_id");
+            $this->success('凭证生成成功，请扫描二维码联系工作人员');
         }else{
             $this->error('申请失败，请重试');
         }
@@ -120,7 +119,6 @@ class WalletController extends BaseController{
         $receipt = M('receipt');
         $result = $receipt->data($data)->add();
 
-        $this->display();
     }
 
     //已废弃
@@ -149,12 +147,26 @@ class WalletController extends BaseController{
             $status = M('loan')->where("loan_id='$loan_id'")->getField('status');
             //审核通过
             if($status == 2){
-                $this->success('success', "/desk/wallet/findingsOfAudit?loan_id='$loan_id'");
+                $this->success('success', "/desk/wallet/findingsOfAudit?loan_id=$loan_id");
             }
             //待审核
             if($status == 1){
-                $this->success('success', "/desk/wallet/waitResult?loan_id='$loan_id'");
+                $this->success('success', "/desk/wallet/waitResult?loan_id=$loan_id");
             }
+        }
+    }
+
+    //提交审核
+    public function submit(){
+        $loan_id = $_SESSION['loan_id'];
+        $loan = M('loan');
+        $data['status'] = 1;
+        $data['put_time'] = date('Y:m:d H:i:s');
+        $result = $loan->where("loan_id='$loan_id'")->data($data)->save();
+        if($result){
+            $this->success('success', '/desk/wallet/myWallet');
+        }else{
+            $this->error('提交失败');
         }
     }
 

@@ -26,7 +26,7 @@
     <span><?php echo ($sum); ?>元</span>
 </div> -->
 <a class="ljtx" id="back">确认</a>
-<p id="loan_id"><?php echo ($loan_id); ?></p>
+<p id="loan_id" style="display: none"><?php echo ($loan_id); ?></p>
 <script>
 $('#back').on('click', function(){
     location.href = '/desk/wallet/myWallet';

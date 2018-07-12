@@ -19,7 +19,7 @@
 <div style="height: 20px;width: 100%;background:#ededed"></div>
 <?php if(is_array($result)): foreach($result as $key=>$vo): ?><div class="je" id="wall">
         <div>
-            <p class="loan_id" id="<?php echo ($vo["loan_id"]); ?>">贷款发放金额：￥<?php echo ($vo["sum"]); ?></p>
+            <p class="loan_id" id="<?php echo ($vo["loan_id"]); ?>">申请金额：￥<?php echo ($vo["sum"]); ?></p>
             <p><?php echo ($vo["put_time"]); ?></p>
         </div>
         <button type="button" id="submit" class="withdraw">查看</button>
